@@ -46,7 +46,13 @@ async function run() {
         });
 
         app.get("/allToys", async(req, res) =>{
-            const result = await allAddedToys.find({}).toArray();
+            const result = await allAddedToys.find({}).limit(20).toArray();
+            res.send(result)
+        });
+
+        app.get("/myToys/:sellerEmail", async (req, res) => {
+            console.log(req.params.sellerEmail);
+            const result = await allAddedToys.find({sellerEmail: req.params.sellerEmail}).toArray();
             res.send(result)
         })
 
