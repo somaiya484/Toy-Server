@@ -26,7 +26,8 @@ async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
-        const allAddedToys = client.db('toyStore').collection('addToys')
+        const allAddedToys = client.db('toyStore').collection('addToys');
+
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
@@ -45,20 +46,21 @@ async function run() {
             res.send(result)
         });
 
-        app.get("/allToys", async(req, res) =>{
+
+
+        app.get("/allToys", async (req, res) => {
             const result = await allAddedToys.find({}).limit(20).toArray();
             res.send(result)
         });
 
         app.get("/myToys/:sellerEmail", async (req, res) => {
             console.log(req.params.sellerEmail);
-            const result = await allAddedToys.find({sellerEmail: req.params.sellerEmail}).toArray();
+            const result = await allAddedToys.find({ sellerEmail: req.params.sellerEmail }).toArray();
             res.send(result)
         })
 
 
     } finally {
-        // await client.close();
     }
 }
 run().catch(console.dir);
