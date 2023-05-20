@@ -58,6 +58,16 @@ async function run() {
             res.send(result)
         });
 
+        app.get("/getToysBySearch/:name", async (req, res) => {
+            const SearchToyName = req.params.name;
+            const result = await allAddedToys.find(
+                {
+                    toyName: { $regex: SearchToyName, $options: "i" }
+                })
+                .toArray();
+            res.send(result);
+        });
+
         app.get("/myToys/:sellerEmail", async (req, res) => {
             console.log(req.params.sellerEmail);
             const result = await allAddedToys.find({ sellerEmail: req.params.sellerEmail }).toArray();
