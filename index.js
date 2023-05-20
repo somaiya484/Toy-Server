@@ -28,6 +28,11 @@ async function run() {
         await client.connect();
         const allAddedToys = client.db('toyStore').collection('addToys');
 
+        // search index
+        const indexKeys = { toyName: 1 };
+        const indexOptions = { name: "searchedAllTos" };
+        const result = await allAddedToys.createIndex(indexKeys, indexOptions);
+        // console.log(result);
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
