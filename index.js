@@ -32,7 +32,6 @@ async function run() {
         const indexKeys = { toyName: 1 };
         const indexOptions = { name: "searchedAllTos" };
         const result = await allAddedToys.createIndex(indexKeys, indexOptions);
-        // console.log(result);
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
@@ -46,7 +45,6 @@ async function run() {
             }
 
             const result = await allAddedToys.insertOne(body);
-
             console.log(result);
             res.send(result)
         });
