@@ -6,7 +6,13 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // middleware
-app.use(cors());;
+const corsOptions = {
+    origin: '*',
+    credentials: true,
+    optionSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions))
 app.use(express.json());
 
 console.log(process.env.DB_PASS)
@@ -55,13 +61,13 @@ async function run() {
             res.send(result)
         });
 
-        app.get("/singleToy/:id", async (req, res) => {
-            console.log(req.params.id);
-            const toys = await allAddedToys.findOne({
-              _id: new ObjectId(req.params.id),
-            });
-            res.send(toys);
-          });
+        // app.get("/singleToy/:id", async (req, res) => {
+        //     console.log(req.params.id);
+        //     const toys = await allAddedToys.findOne({
+        //       _id: new ObjectId(req.params.id),
+        //     });
+        //     res.send(toys);
+        //   });
 
         app.get("/getToysBySearch/:name", async (req, res) => {
             const SearchToyName = req.params.name;
